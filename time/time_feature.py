@@ -11,6 +11,7 @@ def timestamp_to_date(ts):
     Returns:
         %Y-%m-%d, 2017-08-01, string or blank string for bad input
     """
+
     try:
         value = datetime.datetime.fromtimestamp(int(ts)).strftime('%Y-%m-%d')
     except ValueError as e:
@@ -24,6 +25,7 @@ def timestamp_to_hour(ts):
     Returns:
         hour of the timestamp, [0, 23], int or -1 for bad input
     """
+
     try:
         hour = datetime.datetime.fromtimestamp(int(ts)).hour
     except ValueError as e:
@@ -37,6 +39,7 @@ def date_to_weekday(dt):
     Returns:
         weekday: 1 to 7 for Monday to Sunday, int, or -1 for bad input
     """
+
     try:
         if len(dt) == 10:
             weekday = datetime.datetime.strptime(dt, "%Y-%m-%d").isoweekday()
@@ -63,6 +66,7 @@ def holiday_type(dt):
         weekday: 1
         bad input: -1
     """
+
     days_code = {"newyear": 31, "lunarnewyear": 71, "qingming": 32,
             "laborday": 33, "duanwu": 34, "zhongqiu": 35, "nationalday": 72,
             "weekend": 21, "weekday": 1}
@@ -118,12 +122,16 @@ def unit_test():
 
     # holiday_type
     assert holiday_type("2017-08-04") == 1
-    assert holiday_type("2017-08-05") == 21
-    assert holiday_type("2017-10-08") == 72
-    assert holiday_type("2016-12-31") == 31
     assert holiday_type("2017-04-01") == 1
+    assert holiday_type("2017-08-05") == 21
     assert holiday_type("2017-08-05 23:39:39") == 21
+    assert holiday_type("2016-12-31") == 31
+    assert holiday_type("2011-04-04") == 32
+    assert holiday_type("2012-04-30") == 33
+    assert holiday_type("2013-06-10") == 34
+    assert holiday_type("2013-09-21") == 35
+    assert holiday_type("2009-01-26") == 71
+    assert holiday_type("2017-10-08") == 72
 
 if __name__ == "__main__":
     unit_test()
-
