@@ -5,6 +5,8 @@ from sklearn import metrics
 import keras
 
 class AUC_Callback(keras.callbacks.Callback):
+    """Print auc at the end of each epoch, only supporting binary classification.
+    """
     def on_train_begin(self, logs={}):
         self.losses = []
 
