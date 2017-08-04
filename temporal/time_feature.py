@@ -3,12 +3,24 @@
 import datetime
 import time
 import json
+import os
 
 """
 @author: Woody
 @Description:
     This is the module for extract features all about time
 """
+
+holiday_conf = None
+
+def __load_holiday_configuration():
+    """
+    internal function
+    """
+
+    global holiday_conf
+    conf_file = "%s/chinese_holidays.json" % os.path.dirname(os.path.abspath(__file__))
+    holiday_conf = json.load(open(conf_file, "r"))
 
 def timestamp_to_date(ts):
     """
@@ -73,12 +85,13 @@ def holiday_type(dt):
         bad input: -1
     """
 
+    global holiday_conf
+
     days_code = {"newyear": 31, "lunarnewyear": 71, "qingming": 32,
             "laborday": 33, "duanwu": 34, "zhongqiu": 35, "nationalday": 72,
             "weekend": 21, "weekday": 1}
 
-    conf = json.load(open("./chinese_holidays.json", "r"))
-    weekend_work = conf["weekend_work"]
+    weekend_work = holiday_conf["weekend_work"]
     try:
         if len(dt) == 10:
             dt = datetime.datetime.strptime(dt, "%Y-%m-%d")
@@ -96,7 +109,7 @@ def holiday_type(dt):
         year = str(year + 1)
     else:
         year = str(year)
-    holidays = conf[year]
+    holidays = holiday_conf[year]
 
     for holiday in holidays:
         date_span = holidays[holiday].split("to")
@@ -109,6 +122,8 @@ def holiday_type(dt):
     return days_code["weekday"]
 
 def unit_test():
+    __load_holiday_configuration()
+
     # timestamp_to_date
     assert timestamp_to_date(1501811384) == "2017-08-04"
     assert timestamp_to_date("1501811384") == "2017-08-04"
