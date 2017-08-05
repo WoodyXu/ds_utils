@@ -1,0 +1,85 @@
+{
+  "Introduction": "This is a configuration for the world's airlines",
+
+  "china_bigfour": [
+    "CA", "MU", "CZ", "HU"
+    ],
+
+  "hkmctw": [
+    "CX", "HX", "KA", "UO", 
+    "NX",
+    "AE", "B7", "BR", "CI", "FE", "IT"
+    ],
+
+  "staralliance": [
+    "JP", "A3", "AC", "CA", "AI", 
+    "NZ", "NH", "OZ", "OS", "AV",
+    "SN", "CM", "OU", "MS", "ET",
+    "BR", "LO", "LH", "SK", "ZH",
+    "SQ", "SA", "LX", "TP", "TG",
+    "TK", "UA"
+    ],
+
+  "skyteam": [
+    "SU", "AR", "AM", "UX", "AF",
+    "AZ", "CI", "MU", "CZ", "OK",
+    "DL", "GA", "KQ", "KL", "KE",
+    "ME", "SV", "RO", "VN", "MF"
+    ],
+
+  "oneworld": [
+    "AB", "AA", "BA", "CX", "AY",
+    "IB", "JL", "LA", "QR", "MH",
+    "QF", "UL", "RJ", "S7"
+    ],
+
+  "lcc": [
+     "T6",  "E5",  "3O",  "AL",  "P4",
+     "8A",  "T9",  "FN",  "5H",  "JX",
+     "8J",  "MN",  "JE",  "N6",  "FA",
+     "C9",  "AQ",  "KI",  "E4",  "AK",
+     "I5",  "JW",  "D7",  "Z2",  "PA",
+     "BX",  "HD",  "IX",  "ZM",  "OP",
+     "RS",  "DG",  "5J",  "EU",  "PN",
+     "QG",  "YM",  "ZE",  "SJ",  "G8",
+     "Y5",  "UO",  "VQ",  "6E",  "QZ",
+     "7C",  "S2",  "JQ",  "3K",  "GK",
+     "BL",  "LJ",  "IT",  "KC",  "JT",
+     "8L",  "OD",  "MJ",  "DD",  "XW",
+     "O8",  "OX",  "DJ",  "2P",  "MM",
+     "PQ",  "DR",  "TZ",  "XO",  "BC",
+     "LQ",  "SG",  "9C",  "IJ",  "7G",
+     "NZ",  "FD",  "XJ",  "SL",  "VZ",
+     "TT",  "RI",  "TR",  "IT",  "2T",
+     "TW",  "VA",  "VF",  "JW",  "VJ",
+     "VA",  "DJ",  "ZG",  "IW",  "RE",
+     "SH",  "4P",  "WO",  "2B",  "KK",
+     "LZ",  "0B",  "BV",  "KF",  "WW",
+     "C0",  "XG",  "CO",  "DE",  "7H",
+     "D5",  "DI",  "2G",  "DI",  "5D",
+     "U2",  "DS",  "VE",  "EW",  "E2",
+     "F7",  "BE",  "Y2",  "SH",  "LF",
+     "ST",  "4U",  "GO",  "2L",  "5K",
+     "HC",  "3L",  "9X",  "LS",  "GX",
+     "NM",  "IG",  "ZB",  "8I",  "HG",
+     "DY",  "8Q",  "H9",  "DP",  "FR",
+     "NE",  "5P",  "XW",  "QS",  "NB",
+     "XQ",  "XG",  "TO",  "HV",  "TB",
+     "X3",  "TV",  "TV",  "VA",  "V7",
+     "VY",  "IV",  "W6",  "8Z",  "WU",
+     "WW",  "JN",  "P4",  "JR",  "C4",
+     "6A",  "O6",  "V5",  "AD",  "7R",
+     "A7",  "EF",  "G3",  "4O",  "ZE",
+     "QA",  "H2",  "T9",  "VB",  "FC",
+     "Y4",  "Q6",  "WH",  "G9",  "9P",
+     "FZ",  "XY",  "J9",  "R5",  "OV",
+     "ZS",  "ZA",  "WV",  "FL",  "G4",
+     "TZ",  "C6",  "W9",  "F8",  "F9",
+     "YV",  "HQ",  "DH",  "B6",  "SG",
+     "KP",  "ML",  "YX",  "N7",  "NY",
+     "PS",  "PE",  "P9",  "QQ",  "RS",
+     "SX",  "XP",  "WN",  "NK",  "SY",
+     "WG",  "FF",  "U5",  "J7",  "NJ",
+     "VC",  "VX",  "W7",  "WS",  "WR"
+    ]
+}

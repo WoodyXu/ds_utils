@@ -1,0 +1,2 @@
+import flight_feature
+flight_feature.__load_airlines_configuration()
