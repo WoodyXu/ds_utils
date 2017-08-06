@@ -5,8 +5,10 @@ Author: Woody
 Descrption:
     This is a module about flight features
 """
+import datetime
 import json
 import os
+import unittest
 
 airlines_conf = None
 
@@ -53,6 +55,26 @@ def is_low_cost_airline(iata_code):
 
     return iata_code.upper() in airlines_conf["lcc"]
 
+def is_red_eye_flight(scheduled_departure_time, scheduled_arrival_time):
+    """
+    Parameters:
+        scheduled_departure_time: scheduled departure time of the flight, %Y-%m-%d %H:%M:%S
+        scheduled_arrival_time: scheduled arrival time of the flight, %Y-%m-%d %H:%M:%S
+    Returns:
+        True means red eye flight, False means normal flight
+    Raises:
+        ValueError if bad input
+    """
+
+    try:
+        depart_hour = datetime.datetime.strptime(scheduled_departure_time, "%Y-%m-%d %H:%M:%S").hour
+        arrive_hour = datetime.datetime.strptime(scheduled_arrival_time, "%Y-%m-%d %H:%M:%S").hour
+    except ValueError as e:
+        raise ValueError("%s, please input correctly!" % str(e))
+
+    return depart_hour >= 23 and arrive_hour <= 7 and \
+            scheduled_arrival_time > scheduled_departure_time
+
 def unit_test():
     __load_airlines_configuration()
 
@@ -66,6 +88,11 @@ def unit_test():
     # is_low_cost_airline
     assert is_low_cost_airline("ca") is False
     assert is_low_cost_airline("9c") is True
+
+    # is_red_eye_flight
+    assert is_red_eye_flight("2017-08-01 23:30:00", "2017-08-02 05:30:00") is True
+    assert is_red_eye_flight("2017-08-01 23:30:00", "2017-08-01 05:30:00") is False
+    assert is_red_eye_flight("2017-08-01 10:30:00", "2017-08-01 13:30:00") is False
 
 if __name__ == "__main__":
     unit_test()
