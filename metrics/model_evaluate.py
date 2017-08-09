@@ -16,8 +16,6 @@ import numpy as np
 import sklearn
 from sklearn import metrics
 
-import predict_evaluate
-
 def model_evaluate(truth, pred):
     """
     Parameters:
