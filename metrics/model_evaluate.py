@@ -39,8 +39,7 @@ def model_evaluate(truth, pred):
     # ks
     data = pd.DataFrame({"pos": truth, "pred": pred})
     data["neg"] = 1 - data["pos"]
-    data["bucket"] = pd.qcut(data["pred"], 1000)
-    print data
+    data["bucket"] = pd.cut(data["pred"], 1000)
     grouped = data.groupby('bucket', as_index=False)
 
     agg1 = pd.DataFrame()
@@ -49,13 +48,10 @@ def model_evaluate(truth, pred):
     agg1["pos_num"] = grouped.sum()["pos"]
     agg1["neg_num"] = grouped.sum()["neg"]
     agg1["total"] = agg1["pos_num"] + agg1["neg_num"]
-    print agg1
 
     agg2 = (agg1.sort_values(by='min_pred')).reset_index(drop=True)
     agg2["ks"] = np.abs((agg2["neg_num"] * 1.0 / agg2["neg_num"].sum()).cumsum() - \
             (agg2["pos_num"] * 1.0 / agg2["pos_num"].sum()).cumsum()) * 100
-
-    print agg2
 
     ks = agg2["ks"].max()
     opt_index = agg2["ks"].argmax()
