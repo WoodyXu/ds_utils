@@ -2,7 +2,7 @@
 
 """
 Author: Woody
-Description: This module is for binary model evaluation, include auc, ks, precision, recall,
+Description: This module is for binary model evaluation, including auc, ks, precision, recall,
 accuracy and optimal cut point.
 """
 
@@ -24,7 +24,7 @@ def model_evaluate(truth, pred):
     Returns:
         auc, ks, optimal cut point, accuracy, precision and recall
     Raises:
-        ValueError if both lengths of input are not equal
+        ValueError if both lengths of inputs are not equal
     """
     if len(truth) != len(pred):
         raise ValueError("Lengths of truth and guesst must be equal!")
@@ -36,7 +36,7 @@ def model_evaluate(truth, pred):
     fpr, tpr, thresholds = metrics.roc_curve(truth, pred, pos_label=1)
     auc = metrics.auc(fpr, tpr)
 
-    # ks
+    # ks & optimal cut point
     data = pd.DataFrame({"pos": truth, "pred": pred})
     data["neg"] = 1 - data["pos"]
     data["bucket"] = pd.cut(data["pred"], 1000)
@@ -58,6 +58,7 @@ def model_evaluate(truth, pred):
     opt_min, opt_max = agg2["min_pred"].iloc[opt_index], agg2["max_pred"].iloc[opt_index]
     opt_cut = (opt_min + opt_max) / 2.0
 
+    # accuracy, precision & recall
     tp = np.sum(np.logical_and(pred > opt_cut, truth == 1))
     fp = np.sum(np.logical_and(pred > opt_cut, truth == 0))
     fn = np.sum(np.logical_and(pred < opt_cut, truth == 1))
