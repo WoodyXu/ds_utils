@@ -32,6 +32,10 @@ def model_evaluate(truth, pred):
     truth = np.asarray(truth).astype(int)
     pred = np.asarray(pred).astype(float)
 
+    valid_indexes = np.logical_or(truth == 0, truth == 1)
+    truth = truth[valid_indexes]
+    pred = pred[valid_indexes]
+
     # auc
     fpr, tpr, thresholds = metrics.roc_curve(truth, pred, pos_label=1)
     auc = metrics.auc(fpr, tpr)
