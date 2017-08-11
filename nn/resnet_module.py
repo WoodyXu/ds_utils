@@ -87,7 +87,7 @@ def _shortcut(input, residual):
 
 class ResNet(object):
     @staticmethod
-    def build_mlp(input_layer, hiddens, num_output, repetitions):
+    def build_mlp(input_layer, hiddens, repetitions):
         block = _mlp_bn_relu(hiddens)(input_layer)
         for index, value in enumerate(repetitions):
             block = _mlp_residual_block(hiddens, value, index == 0)(block)
@@ -99,8 +99,8 @@ class ResNet(object):
         pass
 
     @staticmethod
-    def build_resnet_mlp(input_layer, hiddens, num_output):
-        return ResNet.build(input_layer, hiddens, num_output, [2, 2, 2, 2])
+    def build_resnet_mlp(input_layer, hiddens):
+        return ResNet.build(input_layer, hiddens, [2, 2, 2, 2])
 
     @staticmethod
     def build_resnet_conv1d():
