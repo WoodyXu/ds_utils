@@ -71,7 +71,7 @@ def _mlp_residual_block(hiddens, repeat, is_first_layer=False):
                 mlp = _bn_relu_mlp(hiddens)(input)
 
             residual = _bn_relu_mlp(hiddens)(input)
-            mlp = _shortcut(input, mlp)
+            mlp = _shortcut(input, residual)
 
         return mlp
     return f
