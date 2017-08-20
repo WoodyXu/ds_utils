@@ -92,10 +92,7 @@ def plot_metrics(truth, pred, threshold=None):
     plt.savefig("./pr_curve.png", dpi=150)
 
 
-
 if __name__ == "__main__":
     preds = np.random.random(10000)
     truths = np.random.randint(2, size=10000)
     plot_metrics(truths, preds)
-
-
