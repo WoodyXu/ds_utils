@@ -27,7 +27,7 @@ def model_evaluate(truth, pred):
         ValueError if both lengths of inputs are not equal
     """
     if len(truth) != len(pred):
-        raise ValueError("Lengths of truth and guesst must be equal!")
+        raise ValueError("Lengths of truth and guess must be equal!")
 
     truth = np.asarray(truth).astype(int)
     pred = np.asarray(pred).astype(float)
