@@ -16,12 +16,11 @@ from sklearn import metrics
 
 import model_evaluate as eva
 
-def plot_metrics(truth, pred, threshold=None):
+def plot_metrics(truth, pred):
     """
     Parameters:
         truth: a list of ground truth, 1 or 0
         pred: a list of guess probabilities, range [0, 1]
-        threshold: the optimal cut, default None
     Returns:
         No returns, just plot some plots, including ROC Curve, KS Curve and PR Curve
     Raises:
@@ -56,10 +55,6 @@ def plot_metrics(truth, pred, threshold=None):
     plt.grid()
     plt.legend(loc="upper left")
 
-    ax = plt.gca()
-    vals = ax.get_yticks()
-    ax.set_yticklabels(['{:.2f}%'.format(x * 100) for x in vals])
-
     pos_cum = sum(pos_data <= opt) * 1.0 / len(pos_data)
     neg_cum = sum(neg_data <= opt) * 1.0 / len(neg_data)
     plt.plot([opt, opt], [pos_cum, neg_cum], color="red", linestyle="--")
@@ -71,7 +66,7 @@ def plot_metrics(truth, pred, threshold=None):
     fpr, tpr, _ = metrics.roc_curve(truth, pred, pos_label=1)
     plt.clf()
     plt.plot(fpr, tpr)
-    plt.plot([0, 1], [0, 1], linestyle="--")
+    plt.plot([0, 1], [0, 1], color="red", linestyle="--")
     plt.grid()
     plt.title("ROC Curve")
     plt.xlabel("False Positive Ratio")
@@ -93,6 +88,13 @@ def plot_metrics(truth, pred, threshold=None):
 
 
 if __name__ == "__main__":
-    preds = np.random.random(10000)
-    truths = np.random.randint(2, size=10000)
+    preds = []
+    truths = []
+    for index in range(5000):
+        preds.append(np.random.random() * 0.5)
+        truths.append(0)
+    for index in range(5000):
+        preds.append((np.random.random() + 1) * 0.5)
+        truths.append(1)
+
     plot_metrics(truths, preds)
