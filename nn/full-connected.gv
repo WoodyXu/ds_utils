@@ -1,0 +1,56 @@
+digraph G 
+
+{ 
+rankdir=LR splines=line nodesep=.05; 
+label="贷中长期信用网络"; fontname="HeiTi";
+dpi=250;
+
+node [label=""]; 
+
+subgraph cluster_0 { 
+color=white; label = "Input"; 
+node [style=solid,color=blue4, shape=circle] x1 x2 x3 x4[label="..."];
+} 
+
+subgraph cluster_1 { 
+color=white; label = "Hidden layer 1";
+node [style=solid,color=red2, shape=circle] a12 a22 a32 a42 a52[label="..."];
+} 
+
+subgraph cluster_2 { 
+color=white; label = "Hidden layer 2";
+node [style=solid,color=red2, shape=circle] a13 a23 a33 a43 a53[label="..."]; 
+} 
+
+subgraph cluster_3 { 
+color=white; label = "Hidden layer 3"; 
+node [style=solid,color=red2, shape=circle] a14 a24 a34 a44 a54[label="..."]; 
+} 
+
+subgraph cluster_4 { 
+color=white;  label="Output"; 
+node [style=solid,color=green2, shape=circle] O1[label="pos"] O2 [label="neg"];} 
+
+x1 -> a12 x1 -> a22 x1 -> a32 x1 -> a42 x1 -> a52 
+x2 -> a12 x2 -> a22 x2 -> a32 x2 -> a42 x2 -> a52 
+x3 -> a12 x3 -> a22 x3 -> a32 x3 -> a42 x3 -> a52
+x4 -> a12 x4 -> a22 x4 -> a32 x4 -> a42 x4 -> a52
+
+a12 -> a13 a12 -> a23 a12 -> a33 a12 -> a43 a12 -> a53
+a22 -> a13 a22 -> a23 a22 -> a33 a22 -> a43 a22 -> a53
+a32 -> a13 a32 -> a23 a32 -> a33 a32 -> a43 a32 -> a53
+a42 -> a13 a42 -> a23 a42 -> a33 a42 -> a43 a42 -> a53
+a52 -> a13 a52 -> a23 a52 -> a33 a52 -> a43 a52 -> a53
+
+a13 -> a14 a13 -> a24 a13 -> a34 a13 -> a44 a13 -> a54
+a23 -> a14 a23 -> a24 a23 -> a34 a23 -> a44 a23 -> a54
+a33 -> a14 a33 -> a24 a33 -> a34 a33 -> a44 a33 -> a54
+a43 -> a14 a43 -> a24 a43 -> a34 a43 -> a44 a43 -> a54
+a53 -> a14 a53 -> a24 a53 -> a34 a53 -> a44 a53 -> a54
+
+a14 -> O1 a14 -> O2
+a24 -> O1 a24 -> O2 
+a34 -> O1 a34 -> O2 
+a44 -> O1 a44 -> O2
+a54 -> O1 a54 -> O2 
+}
