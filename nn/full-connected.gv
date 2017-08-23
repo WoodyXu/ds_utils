@@ -2,7 +2,7 @@ digraph G
 
 { 
 rankdir=LR splines=line nodesep=.05; 
-label="贷中长期信用网络"; fontname="HeiTi";
+label="your title"; fontname="HeiTi";
 dpi=250;
 
 node [label=""]; 
