@@ -1,7 +1,7 @@
 """
 Grad-CAM: Gradient weighted Class Activation Map
 Gradient-weighted Class Activation Mapping (Grad-CAM), 
-uses the gradients of any target concept (say logits for ‘dog’ or even a caption), 
+uses the gradients of any target concept (say logits for 'dog' or even a caption), 
 flowing into the final convolutional layer to produce a coarse localization map 
 highlighting the important regions in the image for predicting the concept.
 """
@@ -49,9 +49,10 @@ heatmap /= np.max(heatmap)
 
 # show
 img = cv2.imread(img_path)
-heatmap = cv2.resize(heatmap, (img.shape[1], imag.shape[0]))
+heatmap = cv2.resize(heatmap, (img.shape[1], img.shape[0]))
 heatmap = np.uint8(heatmap * 255)
 heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
-heatmap = cv2.addWeights(img, 0.6, heatmap, 0.4, 0)
-cv2.imshow("Original", img)
-cv2.imshow("GradCAM", heatmap)
+heatmap = cv2.addWeighted(img, 0.6, heatmap, 0.4, 0)
+# for cli environment
+cv2.imwrite("./Original.jpg", img)
+cv2.imwrite("./GradCAM.jpg", heatmap)
