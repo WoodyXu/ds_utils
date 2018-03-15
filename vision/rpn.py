@@ -1,6 +1,9 @@
 # Region Proposal Network
 import numpy as np
 import random
+from keras import backend as K
+from keras.losses import categorical_crossentropy
+import tensorflow as tf
 
 import iou
 
@@ -190,3 +193,46 @@ def calc_rpn_label_regr(img_data, width, height, resized_width, resize_height, d
     result_rpn_regr = np.concatenate([np.repeat(y_rpn_label, 4, axis=3), y_rpn_regr], axis=3)
 
     return np.copy(result_rpn_labels), np.copy(result_rpn_regr)
+
+
+def rpn_regr_loss(num_anchors):
+    """
+    Default tensorflow image order (width, height, channel)
+    Parameters:
+        num_anchors: number of anchors in the feature map
+    """
+    def rpn_regr_loss_helper(y_true, y_pred):
+        """
+        Parameters:
+            y_true: (batch, feature_map_width, feature_map_height, 2 * 4 * num_anchors)
+            y_pred: (batch, feature_map_width, feature_map_height, 4 * num_anchors)
+        Returns:
+            loss
+        """
+        delta = y_true[:, :, :, 4 * num_anchors:] - y_pred
+        abs_delta = K.abs(delta)
+        bool_delta = K.cast(K.less_equal(abs_delta, 1.0), tf.float32)
+
+        loss = bool_delta * (0.5 * delta * delta) + (1 - bool_delta) * (abs_delta - 0.5)
+        loss = y_true[:, :, :, : 4 * num_anchors] * loss
+        return K.sum(loss) / K.sum(y_true[:, :, :, : 4 * num_anchors] + 1e-6)
+    return rpn_regr_loss_helper
+
+
+def rpn_cls_loss(num_anchors):
+    """
+    Default tensorflow image ordering (width, height, channel)
+    Parameters:
+        num_anchors: number of anchors in the feature map
+    """
+    def rpn_cls_loss_helper(y_true, y_pred):
+        """
+        Parameters:
+            y_true: (batch, feature_map_width, feature_map_height, 2 * num_anchors)
+            y_pred: (batch, feature_map_width, feature_map_height, num_anchors)
+        Returns:
+            loss
+        """
+        loss = K.binary_crossentropy(y_true[:, :, :, num_anchors:], y_pred)
+        loss = y_true[:, :, :, : num_anchors] * loss
+        return K.sum(loss) / K.sum(y_true[:, :, :, : num_anchors] + 1e-6)
