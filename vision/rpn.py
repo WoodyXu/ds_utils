@@ -2,6 +2,7 @@
 import numpy as np
 import random
 from keras import backend as K
+from keras.layers import Conv2D
 import tensorflow as tf
 
 import iou
@@ -236,3 +237,25 @@ def rpn_cls_loss(num_anchors):
         loss = y_true[:, :, :, : num_anchors] * loss
         return K.sum(loss) / K.sum(y_true[:, :, :, : num_anchors] + 1e-6)
     return rpn_cls_loss_helper
+
+
+def rpn_layer(base_layer, num_anchors):
+    """
+    The rpn layer built by Keras
+    Paramters:
+        base_layer: (width, height, channel)
+        num_anchors: number of anchors in one image
+    Returns:
+        class_output: (width, height, num_anchors) for classification
+        regr_output: (width, height, 4 * num_anchors) for regression
+        base_layer: same as input base_layer
+    """
+    x = Conv2D(256, (3, 3), padding="same", activation="relu", kernel_initializer="normal",
+               name="rpn_conv1")(base_layer)
+
+    class_output = Conv2D(num_anchors, (1, 1), activation="sigmoid", kernel_initializer="uniform",
+                          name="rpn_class_output")(x)
+    regr_output = Conv2D(4 * num_anchors, (1, 1), activation="linear", kernel_initializer="zero",
+                          name="rpn_regr_output")(x)
+
+    return class_output, regr_output, base_layer
