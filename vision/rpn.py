@@ -2,7 +2,6 @@
 import numpy as np
 import random
 from keras import backend as K
-from keras.losses import categorical_crossentropy
 import tensorflow as tf
 
 import iou
