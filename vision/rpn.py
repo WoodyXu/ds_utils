@@ -236,3 +236,4 @@ def rpn_cls_loss(num_anchors):
         loss = K.binary_crossentropy(y_true[:, :, :, num_anchors:], y_pred)
         loss = y_true[:, :, :, : num_anchors] * loss
         return K.sum(loss) / K.sum(y_true[:, :, :, : num_anchors] + 1e-6)
+    return rpn_cls_loss_helper
